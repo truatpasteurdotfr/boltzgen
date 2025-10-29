@@ -1,4 +1,4 @@
-name: Docker-daily-dev
+name: Docker-pypi-dev-manual
 
 # This workflow uses actions that are not certified by GitHub.
 # They are provided by a third-party and are governed by
@@ -48,14 +48,14 @@ jobs:
           # generate Docker tags based on the following events/attributes
           tags: |
             type=sha,enable=true,priority=100,prefix=sha-,suffix=,format=short
-            type=raw,enable=true,value=daily-dev,pattern={{date 'YYYYMMDD'}}
+            type=raw,enable=true,value=pypi-dev,pattern={{date 'YYYYMMDD'}}
       # Build and push Docker image with Buildx (don't push on PR)
       # https://github.com/docker/build-push-action
       - name: Build and push Docker image
         uses: docker/build-push-action@v6
         with:
           context: .
-          file: Dockerfile-daily-dev
+          file: Dockerfile-pypi-dev
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
