@@ -1,0 +1,9 @@
+FROM python:3.12
+
+RUN	apt-get update && \
+	DEBIAN_FRONTEND=noninteractive apt-get -y upgrade && \
+	DEBIAN_FRONTEND=noninteractive apt-get -y autoremove && \
+	pip install uv && \
+	uv pip install --system --compile-bytecode git+https://github.com/HannesStark/boltzgen[dev] && \
+	uv cache clean && \
+	pip cache purge 
